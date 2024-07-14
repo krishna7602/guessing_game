@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guessing Game!!</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+        body{
+            width: 100%;
+            height: 100vh;
+            background-color: rgb(130, 127, 115);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .container{
+            background-color: aqua;
+            padding: 70px;
+            border: 2px solid rgb(52, 43, 43);
+            border-radius: 10px;
+        }
+        input[type=text]{
+            margin-top: 10px;
+            height: 40px;
+            border: 2px solid black;
+            border-radius: 20px;
+        }
+        #btn{
+            background-color: rgb(255, 0, 247);
+            gap: 10px;
+            border: none;
+            width: 100px;
+            height: 30px;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Guess a number between 1 to 100</h1>
+        <div class="input">
+            <input type="text" id="inputnumber" />
+            <button id="btn"> Guess</button>
+            <p class="wrng"></p>
+            <p id="guesses">No. of Guess : 0</p>
+        </div>
+    </div> 
+
+    <script>
+        let input=document.getElementById('inputnumber')
+        let btn=document.getElementById('btn');
+        let wrng=document.querySelector('.wrng')
+
+        btn.addEventListener('click' ,()=>{
+            guessno();
+        })
+        let number=Math.floor(Math.random()*100)+1
+        let numberogfuess=0;
+
+        input.addEventListener("keydown",(event)=>{
+            if(event.key=='Enter'){
+                event.preventDefault();
+                guessno();
+            }
+        })
+
+        function guessno(){
+            if(input.value<1 || input.value>100 || isNaN(input.value)){
+                wrng.innerHTML="Enter between 1 to 100";
+            }
+            else{
+                
+                numberogfuess++;
+
+
+                if(input.value>number){
+                    wrng.innerHTML="You guessed too high!";
+                }
+
+                else if(input.value<number){
+                    wrng.innerHTML="You guessed too low!"
+                }
+
+                else{
+                    wrng.innerHTML = "Congratulations! You guessed the correct number in " + numberogfuess + " guesses!";
+
+                    let guesses=document.getElementById('guesses');
+                    guesses.innerHTML=`No Of Guess : ${numberogfuess} `
+                    setTimeout(()=>{
+                        resetgame()
+                    },5000)
+                }
+            }
+
+            function resetgame(){
+                input.value="";
+                
+            }
+        }
+    </script>
+
+</body>
+</html>
